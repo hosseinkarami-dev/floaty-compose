@@ -1,10 +1,9 @@
 # Changelog
 
-Not released yet. This file will document user-visible changes for each tagged version.
+## [0.1.0] - 2026-10-12
 
-## Unreleased
-
-- Add shared Compose Multiplatform toast state, queue, semantic message types, actions, progress, and custom content.
-- Add configurable placement, safe drawing insets, styling, and axis-locked swipe dismissal.
-- Refresh built-in toast surfaces, semantic marks, and entrance/exit motion.
-- Prepare Maven publications and JitPack release documentation.
+- First public release of Floaty, a Compose Multiplatform in-app toast library.
+- Add queued notifications with semantic styles, actions, progress, custom content, and programmatic dismissal.
+- Add nine screen positions, safe drawing insets, theme-aware styling, motion, and customizable gesture dismissal.
+- Add Android, iOS, desktop, JavaScript, and WasmJS target publications.
+- Add GitHub Actions CI and JitPack release verification.
