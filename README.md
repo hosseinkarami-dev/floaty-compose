@@ -12,6 +12,16 @@ Floaty displays in-app notifications in a Compose overlay. It gives the app cont
 
 > **Status:** stable. `v0.1.0` is published on JitPack, and Floaty works on Android, iOS, desktop, and web.
 
+## Preview
+
+Floaty notifications sit over your app UI. The preview shows success, undo action, and upload progress states together; placement can be configured independently for each host.
+
+![Floaty notifications shown over an example app, including a success message, an undo action, and upload progress](docs/images/floaty-preview.svg)
+
+All nine supported host positions:
+
+![Diagram showing Floaty toast placement at top, center, and bottom, aligned to start, center, and end](docs/images/floaty-positions.svg)
+
 ## Highlights
 
 - Shared `ToastState` with a FIFO queue and stable IDs for updates and programmatic dismissal.
