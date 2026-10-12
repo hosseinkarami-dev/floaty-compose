@@ -24,7 +24,7 @@ This confirms the configured publications can be generated on that machine. CI a
 
 JitPack builds the GitHub commit selected by a tag and exposes artifacts after the build succeeds. The repository's `jitpack.yml` selects JDK 21 and runs only `:floaty:publishToMavenLocal`, passing JitPack's group and version into Gradle. JitPack's Gradle documentation describes multi-module coordinates and the custom install command; see [JitPack build documentation](https://docs.jitpack.io/building/).
 
-A JitPack version is a Git tag such as `v0.1.8`; there is no separate JitPack release to create. After CI and the JitPack artifact check pass, the tag-triggered workflow creates a GitHub Release and attaches a ZIP containing the published Maven metadata and platform artifacts. GitHub also provides source ZIP and tar archives for the release.
+A JitPack version is a Git tag such as `v0.1.9`; there is no separate JitPack release to create. After CI and the JitPack artifact check pass, the tag-triggered workflow creates a GitHub Release and attaches a ZIP containing the published Maven metadata and platform artifacts. GitHub also provides source ZIP and tar archives for the release.
 
 ## Automated workflows
 

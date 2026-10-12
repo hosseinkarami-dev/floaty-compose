@@ -56,20 +56,23 @@ jobs:
           RELEASE_VERSION: ${{ github.ref_name }}
         run: |
           version="${RELEASE_VERSION#v}"
-          artifact_dir="$HOME/.m2/repository/com/github/hosseinkarami-dev/floaty-compose/floaty/${version}"
-          test -d "$artifact_dir"
-          python3 - "$artifact_dir" "$RUNNER_TEMP/floaty-${version}-maven-publications.zip" <<'PY'
+          group_dir="$HOME/.m2/repository/com/github/hosseinkarami-dev/floaty-compose"
+          test -d "$group_dir/floaty/${RELEASE_VERSION}"
+          python3 - "$group_dir" "$RELEASE_VERSION" "$RUNNER_TEMP/floaty-${version}-maven-publications.zip" <<'PY'
           from pathlib import Path
           import sys
           from zipfile import ZIP_DEFLATED, ZipFile
 
-          artifact_dir = Path(sys.argv[1])
-          archive_path = Path(sys.argv[2])
-          base_dir = artifact_dir.parent.parent
+          group_dir = Path(sys.argv[1])
+          release_version = sys.argv[2]
+          archive_path = Path(sys.argv[3])
           with ZipFile(archive_path, "w", ZIP_DEFLATED) as archive:
-              for path in sorted(artifact_dir.rglob("*")):
-                  if path.is_file():
-                      archive.write(path, path.relative_to(base_dir))
+              for module_dir in sorted(group_dir.glob("floaty*")):
+                  version_dir = module_dir / release_version
+                  if version_dir.is_dir():
+                      for path in sorted(version_dir.rglob("*")):
+                          if path.is_file():
+                              archive.write(path, path.relative_to(group_dir))
           PY
 
       - name: Request and verify the JitPack publication

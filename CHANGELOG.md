@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.9] - 2026-10-12
+
+- Fix the release ZIP step to package the Maven directory using JitPack's `v`-prefixed version.
+
 ## [0.1.8] - 2026-10-12
 
 - Create a GitHub Release after JitPack verification and attach a ZIP containing the Maven publications.
