@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.8] - 2026-10-12
+
+- Create a GitHub Release after JitPack verification and attach a ZIP containing the Maven publications.
+
 ## [0.1.7] - 2026-10-12
 
 - Add Google's Maven Central mirror to avoid JitPack's upstream Maven Central rate limit.

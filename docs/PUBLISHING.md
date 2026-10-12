@@ -24,13 +24,13 @@ This confirms the configured publications can be generated on that machine. CI a
 
 JitPack builds the GitHub commit selected by a tag and exposes artifacts after the build succeeds. The repository's `jitpack.yml` selects JDK 21 and runs only `:floaty:publishToMavenLocal`, passing JitPack's group and version into Gradle. JitPack's Gradle documentation describes multi-module coordinates and the custom install command; see [JitPack build documentation](https://docs.jitpack.io/building/).
 
-A JitPack version is a Git tag such as `v0.1.7`; there is no separate JitPack release to create. After CI and the JitPack artifact check pass, the tag-triggered workflow creates a GitHub Release and attaches a ZIP containing the published Maven metadata and platform artifacts. GitHub also provides source ZIP and tar archives for the release.
+A JitPack version is a Git tag such as `v0.1.8`; there is no separate JitPack release to create. After CI and the JitPack artifact check pass, the tag-triggered workflow creates a GitHub Release and attaches a ZIP containing the published Maven metadata and platform artifacts. GitHub also provides source ZIP and tar archives for the release.
 
 ## Automated workflows
 
 `.github/workflows/ci.yml` runs on pull requests and pushes to `main`. Its Linux job runs library JVM tests, compiles Android/JVM/JS/WasmJS, checks Maven-local publication, assembles the Android sample, and compiles desktop and browser samples. Its macOS job compiles the library and shared sample for iOS device and simulator targets.
 
-`.github/workflows/release.yml` runs when a `v*` tag is pushed. It first calls the same CI workflow; after CI succeeds, it verifies local publication for the tag version and requests the JitPack POM URL with retries. A successful request confirms JitPack returned the expected module and version. JitPack builds the artifact from the tag on demand; no Maven credentials or publish token are stored in GitHub Actions. The workflow uses read-only repository permissions.
+`.github/workflows/release.yml` runs when a `v*` tag is pushed. It first calls the same CI workflow; after CI succeeds, it verifies local publication for the tag version, packages the Maven publications, and requests the JitPack POM URL with retries. Once JitPack returns the expected module and version, the workflow creates a GitHub Release and uploads the Maven ZIP. The release job uses the workflow's built-in GitHub token with `contents: write`; no personal access token or Maven publishing credentials are stored.
 
 Suggested release sequence:
 
