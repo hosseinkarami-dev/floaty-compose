@@ -17,6 +17,8 @@ jobs:
     name: Build and verify JitPack artifact
     needs: verify
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out tagged source
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -49,6 +51,27 @@ jobs:
           -PjitpackGroup=com.github.hosseinkarami-dev.floaty-compose
           -PVERSION_NAME="$RELEASE_VERSION"
 
+      - name: Package Maven publications
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          version="${RELEASE_VERSION#v}"
+          artifact_dir="$HOME/.m2/repository/com/github/hosseinkarami-dev/floaty-compose/floaty/${version}"
+          test -d "$artifact_dir"
+          python3 - "$artifact_dir" "$RUNNER_TEMP/floaty-${version}-maven-publications.zip" <<'PY'
+          from pathlib import Path
+          import sys
+          from zipfile import ZIP_DEFLATED, ZipFile
+
+          artifact_dir = Path(sys.argv[1])
+          archive_path = Path(sys.argv[2])
+          base_dir = artifact_dir.parent.parent
+          with ZipFile(archive_path, "w", ZIP_DEFLATED) as archive:
+              for path in sorted(artifact_dir.rglob("*")):
+                  if path.is_file():
+                      archive.write(path, path.relative_to(base_dir))
+          PY
+
       - name: Request and verify the JitPack publication
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
@@ -61,3 +84,19 @@ jobs:
           grep -q '<artifactId>floaty</artifactId>' /tmp/floaty-release.pom
           grep -q "<version>${RELEASE_VERSION}</version>" /tmp/floaty-release.pom
           echo "JitPack resolved ${RELEASE_VERSION}."
+
+      - name: Publish GitHub Release and Maven ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          version="${RELEASE_VERSION#v}"
+          archive="$RUNNER_TEMP/floaty-${version}-maven-publications.zip"
+          if gh release view "$RELEASE_VERSION" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_VERSION" "$archive" --clobber
+          else
+            gh release create "$RELEASE_VERSION" "$archive" \
+              --title "Floaty ${RELEASE_VERSION}" \
+              --generate-notes \
+              --latest
+          fi
