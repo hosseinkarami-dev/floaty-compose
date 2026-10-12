@@ -55,4 +55,5 @@ JitPack's public build does not need repository write credentials for this proje
 - Maven publications are configured for the `:floaty` KMP module.
 - Local Maven publication was verified on macOS; Linux publication is checked by CI.
 - The maintainer reports successful runtime checks on Android, desktop, iOS, and web.
-- A successful tagged JitPack build and clean consumer resolution are still required before claiming a published release.
+- `v0.1.0` is published successfully on JitPack; the build reports `floaty`, `floaty-android`, `floaty-iosarm64`, `floaty-iossimulatorarm64`, `floaty-js`, `floaty-jvm`, and `floaty-wasm-js` modules.
+- The release workflow fetched and checked the `v0.1.0` POM. A clean JVM consumer also resolved the JitPack dependency and compiled against `ToastPosition`; clean Android and iOS consumer resolution is still a useful additional check.

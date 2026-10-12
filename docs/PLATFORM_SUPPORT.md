@@ -13,6 +13,8 @@ Floaty keeps its rendering and state API in Kotlin common code. The Gradle modul
 
 The maintainer has manually checked the app at runtime on Android, iOS, desktop, and web and reports that it works correctly. GitHub Actions is configured to compile the Android, JVM/desktop, JS, and WasmJS paths on Linux and compile iOS targets on macOS. These checks do not cover every OS version, browser, device, or accessibility configuration.
 
+The `v0.1.0` JitPack build succeeded and reports Android, iOS Arm64, iOS Simulator Arm64, JVM, JS, and WasmJS publication modules. This confirms artifacts were built and exposed by JitPack; consumers should still resolve the dependency in a clean project for the target they ship.
+
 Kotlin/Native documentation states Linux can produce Apple `.klib` artifacts only when no cinterop dependencies are involved, and final Apple binaries require macOS. This is relevant to JitPack because its normal builds run on Linux. CI is configured to run the KMP `publishToMavenLocal` task on Linux to catch publication/build incompatibilities; the exact tagged JitPack artifact and a clean iOS consumer still need verification for each first release. See [Kotlin/Native supported hosts](https://kotlinlang.org/docs/native-target-support.html).
 
 ## Safe areas

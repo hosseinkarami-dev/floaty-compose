@@ -1,6 +1,7 @@
 # Floaty
 
 [![CI](https://github.com/hosseinkarami-dev/floaty-compose/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hosseinkarami-dev/floaty-compose/actions/workflows/ci.yml)
+[![JitPack](https://jitpack.io/v/hosseinkarami-dev/floaty-compose.svg)](https://jitpack.io/#hosseinkarami-dev/floaty-compose)
 
 <p align="center">
   <strong>Thoughtful, customizable toast notifications for Compose Multiplatform.</strong><br>
@@ -9,7 +10,7 @@
 
 Floaty displays in-app notifications in a Compose overlay. It gives the app control over message state, placement, appearance, actions, progress, and dismissal while keeping the UI in shared Kotlin code.
 
-> **Status:** early development. The repository is not yet released on JitPack. The maintainer has checked runtime behavior on Android, iOS, desktop, and web; GitHub Actions is being added for repeatable build verification. API and platform support may change before `1.0`.
+> **Status:** early development. `v0.1.0` is published on JitPack. The maintainer has checked runtime behavior on Android, iOS, desktop, and web; GitHub Actions validates builds and tests on clean runners. API and platform support may change before `1.0`.
 
 ## Highlights
 
@@ -35,7 +36,7 @@ Floaty uses Compose Multiplatform and the consumer's `MaterialTheme`. See [platf
 
 ## Installation
 
-Floaty is not published yet. Once a `v*` GitHub tag is built successfully by JitPack, add the repository and module dependency below. The coordinates assume this repository remains `hosseinkarami-dev/floaty-compose`; use the exact release tag (for example, `v0.1.0`) in place of `<version>`.
+Floaty is available from JitPack. The current release is `v0.1.0`; use a later release tag when upgrading.
 
 In `settings.gradle.kts`:
 
@@ -51,11 +52,11 @@ In the consuming module's `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.hosseinkarami-dev.floaty-compose:floaty:<version>")
+    implementation("com.github.hosseinkarami-dev.floaty-compose:floaty:v0.1.0")
 }
 ```
 
-JitPack builds tagged commits on its Linux infrastructure. The release workflow requests and verifies the tagged module artifact after CI succeeds. Kotlin Native may produce Apple `.klib` artifacts on Linux only without cinterop dependencies; final Apple binaries require macOS. CI checks the Linux publication task, but iOS artifact consumption must still be verified from JitPack itself before promising JitPack iOS support. See the [publishing guide](docs/PUBLISHING.md).
+The `v0.1.0` JitPack build passed and exposes Android, iOS device/simulator, JVM, JS, and WasmJS modules. CI validates the Linux publication and macOS iOS compilation; test the artifact in your own target app as part of adoption. See the [publishing guide](docs/PUBLISHING.md).
 
 ## Quick start
 
