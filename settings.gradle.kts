@@ -1,6 +1,13 @@
 rootProject.name = "Floaty"
 
 pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "org.jetbrains.compose") {
+                useModule("org.jetbrains.compose:compose-gradle-plugin:${requested.version}")
+            }
+        }
+    }
     repositories {
         google {
             mavenContent {

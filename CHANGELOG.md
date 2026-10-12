@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.3] - 2026-10-12
+
+- Resolve the Compose Gradle plugin directly from its Maven artifact for reliable JitPack builds.
+
 ## [0.1.2] - 2026-10-12
 
 - Remove the Foojay toolchain resolver from settings so JitPack can configure the build with its provided JDK 21.
