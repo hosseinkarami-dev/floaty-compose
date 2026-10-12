@@ -22,6 +22,16 @@ All nine supported host positions:
 
 ![Diagram showing Floaty toast placement at top, center, and bottom, aligned to start, center, and end](docs/images/floaty-positions.svg)
 
+### On Android and iOS
+
+The shared Compose sample running on a Pixel emulator and an iPhone simulator:
+
+<p align="center">
+  <img src="docs/images/floaty-android.png" width="300" alt="Floaty progress and loading notifications in the Android sample on a Pixel emulator">
+  &nbsp;&nbsp;
+  <img src="docs/images/floaty-ios.png" width="300" alt="Floaty upload progress notification in the iOS sample on an iPhone simulator">
+</p>
+
 ## Highlights
 
 - Shared `ToastState` with a FIFO queue and stable IDs for updates and programmatic dismissal.
