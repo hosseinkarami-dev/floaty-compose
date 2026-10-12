@@ -3,13 +3,16 @@ rootProject.name = "Floaty"
 pluginManagement {
     resolutionStrategy {
         eachPlugin {
-            if (requested.id.id == "org.jetbrains.compose") {
-                useModule("org.jetbrains.compose:compose-gradle-plugin:${requested.version}")
+            when {
+                requested.id.id == "org.jetbrains.compose" ->
+                    useModule("org.jetbrains.compose:compose-gradle-plugin:${requested.version}")
+                requested.id.id.startsWith("com.android.") ->
+                    useModule("com.android.tools.build:gradle:${requested.version}")
             }
         }
     }
     repositories {
-        maven("https://repo1.maven.org/maven2")
+        maven("https://repo.maven.apache.org/maven2")
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.5] - 2026-10-12
+
+- Resolve Android Gradle plugin IDs directly and use Maven Central's Apache endpoint to avoid plugin marker rate limits.
+
 ## [0.1.4] - 2026-10-12
 
 - Add a direct Maven Central endpoint for plugin resolution in JitPack's build environment.
