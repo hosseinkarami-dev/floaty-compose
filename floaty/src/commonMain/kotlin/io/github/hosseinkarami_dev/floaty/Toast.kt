@@ -217,10 +217,16 @@ fun ToastHost(
         ToastPosition.BottomEnd -> Alignment.BottomEnd
     }
     val insetModifier = if (config.respectSafeDrawingInsets) modifier.safeDrawingPadding() else modifier
+    // Android clips platform elevation shadows at parent layout bounds. Reserve the configured
+    // elevation as extra space around the toast group so center and edge placements keep a full shadow.
+    val shadowOutset = config.elevation.coerceAtLeast(0.dp)
     Box(insetModifier, contentAlignment = alignment) {
         Column(
             modifier = Modifier.fillMaxWidth().animateContentSize(tween(config.animationDurationMillis.coerceAtLeast(1)))
-                .padding(horizontal = config.horizontalPadding, vertical = config.verticalPadding),
+                .padding(
+                    horizontal = config.horizontalPadding + shadowOutset,
+                    vertical = config.verticalPadding + shadowOutset,
+                ),
             horizontalAlignment = when (config.position) {
                 ToastPosition.TopCenter, ToastPosition.Center, ToastPosition.BottomCenter -> Alignment.CenterHorizontally
                 ToastPosition.TopStart, ToastPosition.CenterStart, ToastPosition.BottomStart -> Alignment.Start
