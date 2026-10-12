@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.4] - 2026-10-12
+
+- Add a direct Maven Central endpoint for plugin resolution in JitPack's build environment.
+
 ## [0.1.3] - 2026-10-12
 
 - Resolve the Compose Gradle plugin directly from its Maven artifact for reliable JitPack builds.
