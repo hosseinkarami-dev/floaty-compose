@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.6] - 2026-10-12
+
+- Check Google's Maven repository before Maven Central when resolving Android Gradle plugin artifacts.
+
 ## [0.1.5] - 2026-10-12
 
 - Resolve Android Gradle plugin IDs directly and use Maven Central's Apache endpoint to avoid plugin marker rate limits.

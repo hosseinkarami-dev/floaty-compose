@@ -12,7 +12,6 @@ pluginManagement {
         }
     }
     repositories {
-        maven("https://repo.maven.apache.org/maven2")
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")
@@ -20,6 +19,7 @@ pluginManagement {
                 includeGroupAndSubgroups("com.google")
             }
         }
+        maven("https://repo.maven.apache.org/maven2")
         mavenCentral()
         gradlePluginPortal()
     }
