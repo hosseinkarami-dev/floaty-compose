@@ -24,7 +24,7 @@ All nine supported host positions:
 
 ### On Android and iOS
 
-The shared Compose sample running on a Pixel emulator and an iPhone simulator:
+The shared Compose sample includes a Light/Dark mode switch, so the toast surface can be checked in both themes on Android, iOS, desktop, and web. Android Studio also provides dedicated Light and Dark previews with live success and upload notifications. The sample runs on a Pixel emulator and an iPhone simulator:
 
 <p align="center">
   <img src="docs/images/floaty-android.png" width="300" alt="Floaty progress and loading notifications in the Android sample on a Pixel emulator">

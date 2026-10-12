@@ -1,5 +1,6 @@
 package io.github.hosseinkarami_dev.floaty
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,8 +19,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview
+@Preview(name = "Floaty · Light", showBackground = true)
 @Composable
-fun AppAndroidPreview() {
-    App()
+fun AppAndroidLightPreview() {
+    FloatyThemePreview(darkMode = false)
+}
+
+@Preview(name = "Floaty · Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
+fun AppAndroidDarkPreview() {
+    FloatyThemePreview(darkMode = true)
 }
