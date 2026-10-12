@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.2] - 2026-10-12
+
+- Remove the Foojay toolchain resolver from settings so JitPack can configure the build with its provided JDK 21.
+
 ## [0.1.1] - 2026-10-12
 
 - Reduce the default toast elevation from 12dp to 6dp.

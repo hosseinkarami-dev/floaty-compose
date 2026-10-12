@@ -10,7 +10,7 @@
 
 Floaty displays in-app notifications in a Compose overlay. It gives the app control over message state, placement, appearance, actions, progress, and dismissal while keeping the UI in shared Kotlin code.
 
-> **Status:** stable. `v0.1.1` is the current JitPack release, and Floaty works on Android, iOS, desktop, and web.
+> **Status:** stable. `v0.1.2` is the current JitPack release, and Floaty works on Android, iOS, desktop, and web.
 
 ## Preview
 
@@ -64,7 +64,7 @@ Floaty uses Compose Multiplatform and the consumer's `MaterialTheme`. See [platf
 
 ## Installation
 
-Floaty is available from JitPack. The current release is `v0.1.1`; use a later release tag when upgrading.
+Floaty is available from JitPack. The current release is `v0.1.2`; use a later release tag when upgrading.
 
 In `settings.gradle.kts`:
 
@@ -80,11 +80,11 @@ In the consuming module's `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.hosseinkarami-dev.floaty-compose:floaty:v0.1.1")
+    implementation("com.github.hosseinkarami-dev.floaty-compose:floaty:v0.1.2")
 }
 ```
 
-The `v0.1.1` JitPack build passed and exposes Android, iOS device/simulator, JVM, JS, and WasmJS modules. CI validates the Linux publication and macOS iOS compilation; test the artifact in your own target app as part of adoption. See the [publishing guide](docs/PUBLISHING.md).
+The release exposes Android, iOS device/simulator, JVM, JS, and WasmJS modules. CI validates the Linux publication and macOS iOS compilation; test the artifact in your own target app as part of adoption. See the [publishing guide](docs/PUBLISHING.md).
 
 ## Quick start
 
