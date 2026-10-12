@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.7] - 2026-10-12
+
+- Add Google's Maven Central mirror to avoid JitPack's upstream Maven Central rate limit.
+
 ## [0.1.6] - 2026-10-12
 
 - Check Google's Maven repository before Maven Central when resolving Android Gradle plugin artifacts.
