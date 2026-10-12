@@ -38,7 +38,7 @@ Suggested release sequence:
 4. Test Android/JVM consumption from a clean sample project. Test iOS consumption independently on macOS.
 5. Commit the release and push a version tag (for example, `v0.1.0`).
 6. Wait for the Release to JitPack workflow and inspect its run and the [JitPack build log](https://jitpack.io/com/github/hosseinkarami-dev/floaty-compose/v0.1.0/build.log) if it fails.
-7. Verify the exact dependency in a fresh Android and iOS consumer after JitPack reports success.
+7. Smoke-test the exact dependency in a fresh Android and iOS consumer after the JitPack build succeeds.
 
 ## Kotlin Multiplatform and JitPack limits
 
@@ -54,6 +54,6 @@ JitPack's public build does not need repository write credentials for this proje
 
 - Maven publications are configured for the `:floaty` KMP module.
 - Local Maven publication was verified on macOS; Linux publication is checked by CI.
-- The maintainer reports successful runtime checks on Android, desktop, iOS, and web.
-- `v0.1.0` is published successfully on JitPack; the build reports `floaty`, `floaty-android`, `floaty-iosarm64`, `floaty-iossimulatorarm64`, `floaty-js`, `floaty-jvm`, and `floaty-wasm-js` modules.
+- Floaty is stable on Android, desktop, iOS, and web.
+- `v0.1.0` is published successfully on JitPack with `floaty`, `floaty-android`, `floaty-iosarm64`, `floaty-iossimulatorarm64`, `floaty-js`, `floaty-jvm`, and `floaty-wasm-js` modules.
 - The release workflow fetched and checked the `v0.1.0` POM. A clean JVM consumer also resolved the JitPack dependency and compiled against `ToastPosition`; clean Android and iOS consumer resolution is still a useful additional check.

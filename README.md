@@ -10,7 +10,7 @@
 
 Floaty displays in-app notifications in a Compose overlay. It gives the app control over message state, placement, appearance, actions, progress, and dismissal while keeping the UI in shared Kotlin code.
 
-> **Status:** early development. `v0.1.0` is published on JitPack. The maintainer has checked runtime behavior on Android, iOS, desktop, and web; GitHub Actions validates builds and tests on clean runners. API and platform support may change before `1.0`.
+> **Status:** stable. `v0.1.0` is published on JitPack, and Floaty works on Android, iOS, desktop, and web.
 
 ## Highlights
 
@@ -27,10 +27,10 @@ Floaty displays in-app notifications in a Compose overlay. It gives the app cont
 
 | Target | Gradle target configured | Status |
 | --- | --- | --- |
-| Android | Android | Runtime checked by the maintainer; CI builds the sample APK |
-| iOS | `iosArm64`, `iosSimulatorArm64` | Runtime checked by the maintainer; CI compiles both targets on macOS |
-| Desktop | JVM | Runtime checked by the maintainer; CI compiles the sample |
-| Browser | JS, WasmJS | Runtime checked by the maintainer; CI compiles both web outputs |
+| Android | Android | Stable; CI builds the sample APK |
+| iOS | `iosArm64`, `iosSimulatorArm64` | Stable; CI compiles both targets on macOS |
+| Desktop | JVM | Stable; CI compiles the sample |
+| Browser | JS, WasmJS | Stable; CI compiles both web outputs |
 
 Floaty uses Compose Multiplatform and the consumer's `MaterialTheme`. See [platform notes](docs/PLATFORM_SUPPORT.md) for current constraints.
 

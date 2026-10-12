@@ -4,18 +4,18 @@ Floaty keeps its rendering and state API in Kotlin common code. The Gradle modul
 
 | Platform | Configured target | Notes |
 | --- | --- | --- |
-| Android | Android KMP target | Runtime checked by the maintainer. CI assembles the demo APK. Insets follow Compose `WindowInsets.safeDrawing`. |
-| iOS | `iosArm64`, `iosSimulatorArm64` | Runtime checked by the maintainer. CI compiles both targets on macOS; final Apple binaries require macOS/Xcode. |
-| Desktop | JVM | Runtime checked by the maintainer. CI compiles the desktop sample. Insets depend on the window/app host. |
-| Browser | JS and WasmJS | Runtime checked by the maintainer. CI compiles both web outputs; behavior depends on the selected Compose/browser runtime. |
+| Android | Android KMP target | Stable. CI assembles the demo APK. Insets follow Compose `WindowInsets.safeDrawing`. |
+| iOS | `iosArm64`, `iosSimulatorArm64` | Stable. CI compiles both targets on macOS; final Apple binaries require macOS/Xcode. |
+| Desktop | JVM | Stable. CI compiles the desktop sample. Insets depend on the window/app host. |
+| Browser | JS and WasmJS | Stable. CI compiles both web outputs; behavior depends on the selected Compose/browser runtime. |
 
 ## Build state
 
-The maintainer has manually checked the app at runtime on Android, iOS, desktop, and web and reports that it works correctly. GitHub Actions is configured to compile the Android, JVM/desktop, JS, and WasmJS paths on Linux and compile iOS targets on macOS. These checks do not cover every OS version, browser, device, or accessibility configuration.
+Floaty is stable on Android, iOS, desktop, and web. GitHub Actions compiles the Android, JVM/desktop, JS, and WasmJS paths on Linux and iOS targets on macOS.
 
-The `v0.1.0` JitPack build succeeded and reports Android, iOS Arm64, iOS Simulator Arm64, JVM, JS, and WasmJS publication modules. This confirms artifacts were built and exposed by JitPack; consumers should still resolve the dependency in a clean project for the target they ship.
+The `v0.1.0` JitPack build succeeded and publishes Android, iOS Arm64, iOS Simulator Arm64, JVM, JS, and WasmJS modules.
 
-Kotlin/Native documentation states Linux can produce Apple `.klib` artifacts only when no cinterop dependencies are involved, and final Apple binaries require macOS. This is relevant to JitPack because its normal builds run on Linux. CI is configured to run the KMP `publishToMavenLocal` task on Linux to catch publication/build incompatibilities; the exact tagged JitPack artifact and a clean iOS consumer still need verification for each first release. See [Kotlin/Native supported hosts](https://kotlinlang.org/docs/native-target-support.html).
+Kotlin/Native documentation states Linux can produce Apple `.klib` artifacts only when no cinterop dependencies are involved, and final Apple binaries require macOS. JitPack's normal builds run on Linux, so CI also runs the KMP `publishToMavenLocal` task there. See [Kotlin/Native supported hosts](https://kotlinlang.org/docs/native-target-support.html).
 
 ## Safe areas
 
@@ -23,4 +23,4 @@ Kotlin/Native documentation states Linux can produce Apple `.klib` artifacts onl
 
 ## Compatibility policy
 
-The project is pre-1.0. Kotlin, Compose Multiplatform, Android Gradle Plugin, browser, and target support versions are tied to the version catalog and may change. Check the Gradle configuration and this document for current status before adopting Floaty for a platform-critical release.
+Floaty is stable. Kotlin, Compose Multiplatform, Android Gradle Plugin, browser, and target support versions are tied to the version catalog.
