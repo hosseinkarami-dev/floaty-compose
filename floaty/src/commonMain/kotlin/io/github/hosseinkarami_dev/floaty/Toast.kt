@@ -179,7 +179,7 @@ data class ToastConfig(
     val surfaceColor: Color? = null,
     val contentColor: Color? = null,
     val borderColor: Color? = null,
-    val elevation: Dp = 12.dp,
+    val elevation: Dp = 6.dp,
     val showDismissButton: Boolean = true,
     /** Avoid status bars, navigation bars, and display cutouts when the host platform exposes safe insets. */
     val respectSafeDrawingInsets: Boolean = true,
@@ -252,6 +252,7 @@ fun ToastHost(
 private fun ToastItem(id: String, message: ToastMessage, config: ToastConfig, dismiss: () -> Unit) {
     val duration = message.duration.millis()
     var visible by remember(id) { mutableStateOf(true) }
+    var swipeDismissAxis by remember(id) { mutableStateOf(SwipeAxis.None) }
     LaunchedEffect(id, duration, visible) {
         if (visible && duration != null) {
             delay(duration)
@@ -277,7 +278,10 @@ private fun ToastItem(id: String, message: ToastMessage, config: ToastConfig, di
     val layoutDirection = LocalLayoutDirection.current
     val swipeEnabled = config.swipeToDismiss && message.dismissible
     val swipeModifier = if (swipeEnabled) {
-        SwipeToDismissModifier(id, config.swipeDirection, config.position, config.swipeThreshold, layoutDirection) { visible = false }
+        SwipeToDismissModifier(id, config.swipeDirection, config.position, config.swipeThreshold, layoutDirection) { axis ->
+            if (axis != null) swipeDismissAxis = axis
+            visible = false
+        }
     } else Modifier
     val animationSpec = tween<Float>(config.animationDurationMillis)
     AnimatedVisibility(
@@ -293,6 +297,7 @@ private fun ToastItem(id: String, message: ToastMessage, config: ToastConfig, di
         exit = fadeOut(animationSpec) + scaleOut(animationSpec, targetScale = .98f) +
             slideOutVertically(tween(config.animationDurationMillis)) { height ->
                 when {
+                    swipeDismissAxis == SwipeAxis.Horizontal -> 0
                     config.position.isTop() -> -height / 6
                     config.position.isBottom() -> height / 6
                     else -> 0
@@ -398,7 +403,7 @@ private fun SwipeToDismissModifier(
     position: ToastPosition,
     threshold: Dp,
     layoutDirection: LayoutDirection,
-    requestDismiss: () -> Unit,
+    requestDismiss: (SwipeAxis?) -> Unit,
 ): Modifier {
     val density = LocalDensity.current
     val thresholdPx = with(density) { threshold.toPx() }
@@ -418,9 +423,14 @@ private fun SwipeToDismissModifier(
                         SwipeAxis.Vertical -> kotlin.math.abs(dragY) >= thresholdPx
                         SwipeAxis.None -> false
                     }
-                    if (shouldDismiss) requestDismiss()
-                    dragX = 0f
-                    dragY = 0f
+                    if (shouldDismiss) {
+                        // Keep the dragged offset during the exit animation so the toast
+                        // continues in the swipe direction instead of snapping back first.
+                        requestDismiss(activeAxis)
+                    } else {
+                        dragX = 0f
+                        dragY = 0f
+                    }
                     activeAxis = SwipeAxis.None
                 },
                 onDragCancel = { dragX = 0f; dragY = 0f; activeAxis = SwipeAxis.None },
@@ -472,6 +482,6 @@ private fun SwipeToDismissModifier(
             )
         }
         .semantics(mergeDescendants = true) {
-            dismiss { requestDismiss(); true }
+            dismiss { requestDismiss(null); true }
         }
 }
