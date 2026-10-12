@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.1] - 2026-10-12
+
+- Reduce the default toast elevation from 12dp to 6dp.
+- Fix swipe dismissal so the toast continues in the selected gesture direction instead of snapping back.
+
 ## [0.1.0] - 2026-10-12
 
 - First public release of Floaty, a Compose Multiplatform in-app toast library.

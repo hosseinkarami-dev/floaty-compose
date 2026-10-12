@@ -10,7 +10,7 @@
 
 Floaty displays in-app notifications in a Compose overlay. It gives the app control over message state, placement, appearance, actions, progress, and dismissal while keeping the UI in shared Kotlin code.
 
-> **Status:** stable. `v0.1.0` is published on JitPack, and Floaty works on Android, iOS, desktop, and web.
+> **Status:** stable. `v0.1.1` is the current JitPack release, and Floaty works on Android, iOS, desktop, and web.
 
 ## Preview
 
@@ -22,15 +22,23 @@ All nine supported host positions:
 
 ![Diagram showing Floaty toast placement at top, center, and bottom, aligned to start, center, and end](docs/images/floaty-positions.svg)
 
-### On Android and iOS
+### Android and iOS themes
 
-The shared Compose sample includes a Light/Dark mode switch, so the toast surface can be checked in both themes on Android, iOS, desktop, and web. Android Studio also provides dedicated Light and Dark previews with live success and upload notifications. The sample runs on a Pixel emulator and an iPhone simulator:
+The shared Compose sample includes a Light/Dark mode switch. These emulator and simulator screenshots show the toast surface in both themes:
 
-<p align="center">
-  <img src="docs/images/floaty-android.png" width="300" alt="Floaty progress and loading notifications in the Android sample on a Pixel emulator">
+<p align="center"><strong>Android</strong><br>
+  <img src="docs/images/floaty-android.png" width="240" alt="Floaty success and upload notifications in the Android sample using the light theme">
   &nbsp;&nbsp;
-  <img src="docs/images/floaty-ios.png" width="300" alt="Floaty upload progress notification in the iOS sample on an iPhone simulator">
+  <img src="docs/images/floaty-android-dark.png" width="240" alt="Floaty success and upload notifications in the Android sample using the dark theme">
 </p>
+
+<p align="center"><strong>iOS</strong><br>
+  <img src="docs/images/floaty-ios.png" width="240" alt="Floaty upload notification in the iOS sample using the light theme">
+  &nbsp;&nbsp;
+  <img src="docs/images/floaty-ios-dark.png" width="240" alt="Floaty upload notification in the iOS sample using the dark theme">
+</p>
+
+Android Studio also provides dedicated Light and Dark previews with live success and upload notifications.
 
 ## Highlights
 
@@ -56,7 +64,7 @@ Floaty uses Compose Multiplatform and the consumer's `MaterialTheme`. See [platf
 
 ## Installation
 
-Floaty is available from JitPack. The current release is `v0.1.0`; use a later release tag when upgrading.
+Floaty is available from JitPack. The current release is `v0.1.1`; use a later release tag when upgrading.
 
 In `settings.gradle.kts`:
 
@@ -72,11 +80,11 @@ In the consuming module's `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.hosseinkarami-dev.floaty-compose:floaty:v0.1.0")
+    implementation("com.github.hosseinkarami-dev.floaty-compose:floaty:v0.1.1")
 }
 ```
 
-The `v0.1.0` JitPack build passed and exposes Android, iOS device/simulator, JVM, JS, and WasmJS modules. CI validates the Linux publication and macOS iOS compilation; test the artifact in your own target app as part of adoption. See the [publishing guide](docs/PUBLISHING.md).
+The `v0.1.1` JitPack build passed and exposes Android, iOS device/simulator, JVM, JS, and WasmJS modules. CI validates the Linux publication and macOS iOS compilation; test the artifact in your own target app as part of adoption. See the [publishing guide](docs/PUBLISHING.md).
 
 ## Quick start
 

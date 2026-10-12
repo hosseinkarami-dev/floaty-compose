@@ -24,6 +24,8 @@ This confirms the configured publications can be generated on that machine. CI a
 
 JitPack builds the GitHub commit selected by a tag and exposes artifacts after the build succeeds. The repository's `jitpack.yml` selects JDK 21 and runs only `:floaty:publishToMavenLocal`, passing JitPack's group and version into Gradle. JitPack's Gradle documentation describes multi-module coordinates and the custom install command; see [JitPack build documentation](https://docs.jitpack.io/building/).
 
+A JitPack version is a Git tag such as `v0.1.1`; there is no separate JitPack release to create. A GitHub Release page is optional. The tag-triggered workflow verifies that the tagged artifact resolves from JitPack.
+
 ## Automated workflows
 
 `.github/workflows/ci.yml` runs on pull requests and pushes to `main`. Its Linux job runs library JVM tests, compiles Android/JVM/JS/WasmJS, checks Maven-local publication, assembles the Android sample, and compiles desktop and browser samples. Its macOS job compiles the library and shared sample for iOS device and simulator targets.
