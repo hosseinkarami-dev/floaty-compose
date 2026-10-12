@@ -1,5 +1,7 @@
 # Floaty
 
+[![CI](https://github.com/hosseinkarami-dev/floaty-compose/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hosseinkarami-dev/floaty-compose/actions/workflows/ci.yml)
+
 <p align="center">
   <strong>Thoughtful, customizable toast notifications for Compose Multiplatform.</strong><br>
   One small API for Android, iOS, desktop, and web Compose interfaces.
@@ -7,7 +9,7 @@
 
 Floaty displays in-app notifications in a Compose overlay. It gives the app control over message state, placement, appearance, actions, progress, and dismissal while keeping the UI in shared Kotlin code.
 
-> **Status:** early development. The repository is not yet released on JitPack. API and platform support may change before `1.0`.
+> **Status:** early development. The repository is not yet released on JitPack. The maintainer has checked runtime behavior on Android, iOS, desktop, and web; GitHub Actions is being added for repeatable build verification. API and platform support may change before `1.0`.
 
 ## Highlights
 
@@ -15,7 +17,7 @@ Floaty displays in-app notifications in a Compose overlay. It gives the app cont
 - Semantic styles for default, success, error, warning, info, and loading messages.
 - Short, medium, long, custom, and indefinite durations. Timers start when a message becomes visible.
 - Optional action, determinate progress, and fully custom composable content.
-- Top or bottom placement, safe drawing insets, Material theme colors, and per-message accent colors.
+- Nine screen positions, safe drawing insets, Material theme colors, and per-message accent colors.
 - Optional gesture dismissal with axis locking, edge-aware vertical gestures, direction and threshold controls.
 - Animated entrance and exit, with a duration setting that can turn motion off.
 - No required icon library or platform toast API.
@@ -24,16 +26,16 @@ Floaty displays in-app notifications in a Compose overlay. It gives the app cont
 
 | Target | Gradle target configured | Status |
 | --- | --- | --- |
-| Android | Android | Build configured; validate in the consuming app |
-| iOS | `iosArm64`, `iosSimulatorArm64` | Build configured; final Apple binaries require macOS/Xcode |
-| Desktop | JVM | Build configured |
-| Browser | JS, WasmJS | Build configured; browser/runtime coverage is not yet guaranteed |
+| Android | Android | Runtime checked by the maintainer; CI builds the sample APK |
+| iOS | `iosArm64`, `iosSimulatorArm64` | Runtime checked by the maintainer; CI compiles both targets on macOS |
+| Desktop | JVM | Runtime checked by the maintainer; CI compiles the sample |
+| Browser | JS, WasmJS | Runtime checked by the maintainer; CI compiles both web outputs |
 
 Floaty uses Compose Multiplatform and the consumer's `MaterialTheme`. See [platform notes](docs/PLATFORM_SUPPORT.md) for current constraints.
 
 ## Installation
 
-Floaty is not published yet. Once a GitHub tag is built successfully by JitPack, add the repository and module dependency below. The coordinates assume this repository remains `hosseinkarami-dev/floaty-compose`; use the exact release tag in place of `<version>`.
+Floaty is not published yet. Once a `v*` GitHub tag is built successfully by JitPack, add the repository and module dependency below. The coordinates assume this repository remains `hosseinkarami-dev/floaty-compose`; use the exact release tag (for example, `v0.1.0`) in place of `<version>`.
 
 In `settings.gradle.kts`:
 
@@ -53,7 +55,7 @@ dependencies {
 }
 ```
 
-JitPack builds tagged commits on its Linux infrastructure. Android/JVM artifacts are the intended first JitPack distribution. Kotlin Native may produce Apple `.klib` artifacts on Linux only without cinterop dependencies; final Apple binaries require macOS. Do not assume iOS publication works from JitPack until a tagged build and a clean iOS consumer are verified. See the [publishing guide](docs/PUBLISHING.md).
+JitPack builds tagged commits on its Linux infrastructure. The release workflow requests and verifies the tagged module artifact after CI succeeds. Kotlin Native may produce Apple `.klib` artifacts on Linux only without cinterop dependencies; final Apple binaries require macOS. CI checks the Linux publication task, but iOS artifact consumption must still be verified from JitPack itself before promising JitPack iOS support. See the [publishing guide](docs/PUBLISHING.md).
 
 ## Quick start
 

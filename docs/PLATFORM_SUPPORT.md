@@ -4,16 +4,16 @@ Floaty keeps its rendering and state API in Kotlin common code. The Gradle modul
 
 | Platform | Configured target | Notes |
 | --- | --- | --- |
-| Android | Android KMP target | Host should be placed inside the Compose UI tree. Insets follow Compose `WindowInsets.safeDrawing`. |
-| iOS | `iosArm64`, `iosSimulatorArm64` | Requires macOS/Xcode for final Apple binaries and simulator validation. Use the Compose UI host in the shared UI hierarchy. |
-| Desktop | JVM | Insets depend on the window/app host; desktop normally has no mobile system bars. |
-| Browser | JS and WasmJS | Browser support and safe-area behavior depend on the selected Compose/browser runtime. Test each browser and target you ship. |
+| Android | Android KMP target | Runtime checked by the maintainer. CI assembles the demo APK. Insets follow Compose `WindowInsets.safeDrawing`. |
+| iOS | `iosArm64`, `iosSimulatorArm64` | Runtime checked by the maintainer. CI compiles both targets on macOS; final Apple binaries require macOS/Xcode. |
+| Desktop | JVM | Runtime checked by the maintainer. CI compiles the desktop sample. Insets depend on the window/app host. |
+| Browser | JS and WasmJS | Runtime checked by the maintainer. CI compiles both web outputs; behavior depends on the selected Compose/browser runtime. |
 
 ## Build state
 
-Target declarations indicate configured compilation paths, not a promise of runtime compatibility across all OS versions, browsers, or toolchains. The repository currently has successful local Android and JVM library compilation; JS, WasmJS, iOS, and consuming-app runtime behavior require their own release checks.
+The maintainer has manually checked the app at runtime on Android, iOS, desktop, and web and reports that it works correctly. GitHub Actions is configured to compile the Android, JVM/desktop, JS, and WasmJS paths on Linux and compile iOS targets on macOS. These checks do not cover every OS version, browser, device, or accessibility configuration.
 
-Kotlin/Native documentation states Linux can produce Apple `.klib` artifacts only when no cinterop dependencies are involved, and final Apple binaries require macOS. This is relevant to JitPack because its normal builds run on Linux. Whether the full Compose dependency graph in a given release is suitable for producing all iOS publications there must be verified from the actual tagged build. See [Kotlin/Native supported hosts](https://kotlinlang.org/docs/native-target-support.html).
+Kotlin/Native documentation states Linux can produce Apple `.klib` artifacts only when no cinterop dependencies are involved, and final Apple binaries require macOS. This is relevant to JitPack because its normal builds run on Linux. CI is configured to run the KMP `publishToMavenLocal` task on Linux to catch publication/build incompatibilities; the exact tagged JitPack artifact and a clean iOS consumer still need verification for each first release. See [Kotlin/Native supported hosts](https://kotlinlang.org/docs/native-target-support.html).
 
 ## Safe areas
 

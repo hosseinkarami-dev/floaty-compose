@@ -1,2 +1,4 @@
 jdk:
-  - openjdk17
+  - openjdk21
+install:
+  - ./gradlew :floaty:publishToMavenLocal --stacktrace -PjitpackGroup="$GROUP" -PVERSION_NAME="$VERSION"

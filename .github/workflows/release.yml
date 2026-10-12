@@ -1,0 +1,63 @@
+name: Release to JitPack
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify release targets
+    uses: ./.github/workflows/ci.yml
+
+  jitpack:
+    name: Build and verify JitPack artifact
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Validate release tag
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          if [[ ! "$RELEASE_VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Expected a semantic version tag such as v0.1.0; received ${RELEASE_VERSION}." >&2
+            exit 1
+          fi
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: zulu
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+
+      - name: Verify the tagged publication locally
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: >-
+          ./gradlew --stacktrace :floaty:publishToMavenLocal
+          -PjitpackGroup=com.github.hosseinkarami-dev.floaty-compose
+          -PVERSION_NAME="$RELEASE_VERSION"
+
+      - name: Request and verify the JitPack publication
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          artifact_url="https://jitpack.io/com/github/hosseinkarami-dev/floaty-compose/floaty/${RELEASE_VERSION}/floaty-${RELEASE_VERSION}.pom"
+          echo "Requesting ${artifact_url}"
+          curl --fail --silent --show-error \
+            --retry 20 --retry-all-errors --retry-delay 30 --retry-max-time 900 \
+            "$artifact_url" --output /tmp/floaty-release.pom
+          grep -q '<artifactId>floaty</artifactId>' /tmp/floaty-release.pom
+          grep -q "<version>${RELEASE_VERSION}</version>" /tmp/floaty-release.pom
+          echo "JitPack resolved ${RELEASE_VERSION}."
